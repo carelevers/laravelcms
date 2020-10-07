@@ -32,6 +32,11 @@
                             Instellingen
                         </router-link>
                     </li>
+                    <li>
+                        <router-link :to="{ name: 'beans' }">
+                            beans
+                        </router-link>
+                    </li>
                 </ul>
             </section>
         </nav>
