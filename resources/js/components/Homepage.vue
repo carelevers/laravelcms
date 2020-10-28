@@ -1,5 +1,6 @@
 
 <template>
+
     <div>
         <nav>
             <section>
@@ -46,7 +47,7 @@
                 <p @click="logout" class="float-right mr-3" style="cursor: pointer">Logout</p>
             </header>
             <div>
-                <router-view></router-view>
+                <router-view v-bind:apiToken="apiToken"  v-bind:userId="userId" ></router-view>
             </div>
         </article>
     </div>
@@ -114,6 +115,10 @@ export default {
             required: true
         },
         userName: {
+            type: String,
+            required: true
+        },
+        apiToken: {
             type: String,
             required: true
         }

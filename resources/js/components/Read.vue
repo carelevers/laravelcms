@@ -1,6 +1,14 @@
 <template>
     <div id="posts">
+        <div class="nav">
+            <div class="nav-item">
+                <router-link :to="{ name: 'create' }">
+                    Create
+                </router-link>
+            </div>
+        </div>
         <p class="border p-3" v-for="post in posts">
+
             {{ post.title }}
             <router-link :to="{ name: 'update', params: { postId : post.id } }">
                 <button type="button" class="p-1 mx-3 float-right btn btn-light">
@@ -36,20 +44,32 @@
     </div>
 </template>
 <script>
+
 export default {
+
+    name: "Read",
     mounted() {
         this.getPosts();
+
     },
     data() {
+
         return {
             posts: {},
             next: null,
             prev: null
         };
     },
+    props: {
+        apiToken: {
+            type: String,
+            required: true
+        }
+    },
     methods: {
+
         getPosts(address) {
-            axios.get(address ? address : "/api/posts").then(response => {
+            axios.get(address ? address : "/api/posts?api_token="+this.apiToken).then(response => {
                 this.posts = response.data.data;
                 this.prev = response.data.links.prev;
                 this.next = response.data.links.next;

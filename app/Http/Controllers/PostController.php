@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Str;
+use App\Helper\Helper;
 
 /**
  * Class PostController
@@ -99,9 +100,14 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
-
-        $post->update($request->only(['title', 'body']));
+        print_r($post);
+        if ($request->hasFile('image')) {
+            $name = Helper::moveImage($request->file('image'));
+            $post->image = Str::slug($request->title).'.'.$name;
+        }
+        $post->update($request->only(['title', 'body','image']));
 
         return new PostResource($post);
     }

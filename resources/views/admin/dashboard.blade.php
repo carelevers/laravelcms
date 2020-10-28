@@ -31,6 +31,7 @@
     <Homepage
         :user-name='@json(auth()->user()->name)'
         :user-id='@json(auth()->user()->id)'
+        :api-token='@json(auth()->user()->api_token)'
     ></Homepage>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>

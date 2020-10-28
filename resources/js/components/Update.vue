@@ -21,6 +21,13 @@
             <div class="form-group">
                 <textarea class="form-control" ref="body" id="body" placeholder="Enter a body" rows="8" required></textarea>
             </div>
+            <div class="mb-3">
+                <img width="100" ref="imageView"  alt="image" />
+            </div>
+            <div class="custom-file mb-3">
+                <input  type="file" ref="image" name="image" class="custom-file-input" id="image" required>
+                <label class="custom-file-label" >Choose file...</label>
+            </div>
 
             <button type="submit" @click.prevent="update" class="btn btn-primary block">
                 Submit
@@ -37,6 +44,10 @@ export default {
         postId: {
             type: Number,
             required: true
+        },
+        apiToken:{
+            type: String,
+            required: true
         }
     },
     data() {
@@ -50,9 +61,10 @@ export default {
         update() {
             let title = this.$refs.title.value;
             let body = this.$refs.body.value;
+            let image = this.$refs.image.files[0];
 
             axios
-                .put("/api/posts/" + this.postId, { title, body })
+                .put("/api/posts/" + this.postId + "?api_token="+this.apiToken, { title, body, image })
                 .then(response => {
                     this.successful = true;
                     this.error = false;
@@ -69,9 +81,10 @@ export default {
                 });
         },
         getPost() {
-            axios.get("/api/posts/" + this.postId).then(response => {
+            axios.get("/api/posts/" + this.postId + "?api_token="+this.apiToken).then(response => {
                 this.$refs.title.value = response.data.data.title;
                 this.$refs.body.value = response.data.data.body;
+                this.$refs.imageView.src = "/uploads/posts/"+response.data.data.image;
             });
         }
     }

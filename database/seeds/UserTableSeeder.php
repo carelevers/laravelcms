@@ -27,6 +27,7 @@ class UserTableSeeder extends Seeder
         $admin->name = 'Carel Evers';
         $admin->email = 'carelevers@live.nl';
         $admin->password =  Hash::make('admin');
+        $admin->api_token = Str::random(60);
         $admin->save();
         $admin->roles()->attach(Role::where('name', 'admin')->first());
     }

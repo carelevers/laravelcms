@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+
         <form>
             <div :class="['form-group m-1 p-3', (successful ? 'alert-success' : '')]">
                 <span v-if="successful" class="label label-sucess">Published!</span>
@@ -41,6 +42,10 @@ export default {
         userId: {
             type: Number,
             required: true
+        },
+        apiToken: {
+            type: String,
+            required: true
         }
     },
     data() {
@@ -59,7 +64,7 @@ export default {
             formData.append("image", this.$refs.image.files[0]);
 
             axios
-                .post("/api/posts", formData)
+                .post("/api/posts?api_token="+this.apiToken, formData)
                 .then(response => {
                     this.successful = true;
                     this.error = false;

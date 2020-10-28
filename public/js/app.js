@@ -2032,10 +2032,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     userId: {
       type: Number,
+      required: true
+    },
+    apiToken: {
+      type: String,
       required: true
     }
   },
@@ -2055,7 +2060,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("body", this.$refs.body.value);
       formData.append("user_id", this.userId);
       formData.append("image", this.$refs.image.files[0]);
-      axios.post("/api/posts", formData).then(function (response) {
+      axios.post("/api/posts?api_token=" + this.apiToken, formData).then(function (response) {
         _this.successful = true;
         _this.error = false;
         _this.errors = [];
@@ -2207,6 +2212,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     userId: {
@@ -2214,6 +2225,10 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     },
     userName: {
+      type: String,
+      required: true
+    },
+    apiToken: {
       type: String,
       required: true
     }
@@ -2299,7 +2314,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Read",
   mounted: function mounted() {
     this.getPosts();
   },
@@ -2310,11 +2334,17 @@ __webpack_require__.r(__webpack_exports__);
       prev: null
     };
   },
+  props: {
+    apiToken: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
     getPosts: function getPosts(address) {
       var _this = this;
 
-      axios.get(address ? address : "/api/posts").then(function (response) {
+      axios.get(address ? address : "/api/posts?api_token=" + this.apiToken).then(function (response) {
         _this.posts = response.data.data;
         _this.prev = response.data.links.prev;
         _this.next = response.data.links.next;
@@ -2374,6 +2404,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getPost();
@@ -2381,6 +2418,10 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     postId: {
       type: Number,
+      required: true
+    },
+    apiToken: {
+      type: String,
       required: true
     }
   },
@@ -2397,9 +2438,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var title = this.$refs.title.value;
       var body = this.$refs.body.value;
-      axios.put("/api/posts/" + this.postId, {
+      var image = this.$refs.image.files[0];
+      axios.put("/api/posts/" + this.postId + "?api_token=" + this.apiToken, {
         title: title,
-        body: body
+        body: body,
+        image: image
       }).then(function (response) {
         _this.successful = true;
         _this.error = false;
@@ -2417,9 +2460,10 @@ __webpack_require__.r(__webpack_exports__);
     getPost: function getPost() {
       var _this2 = this;
 
-      axios.get("/api/posts/" + this.postId).then(function (response) {
+      axios.get("/api/posts/" + this.postId + "?api_token=" + this.apiToken).then(function (response) {
         _this2.$refs.title.value = response.data.data.title;
         _this2.$refs.body.value = response.data.data.body;
+        _this2.$refs.imageView.src = "/uploads/posts/" + response.data.data.image;
       });
     }
   }
@@ -45011,6 +45055,16 @@ var render = function() {
               ])
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            [
+              _c("router-link", { attrs: { to: { name: "beans" } } }, [
+                _vm._v("\n                        beans\n                    ")
+              ])
+            ],
+            1
           )
         ])
       ])
@@ -45033,7 +45087,15 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", [_c("router-view")], 1)
+      _c(
+        "div",
+        [
+          _c("router-view", {
+            attrs: { apiToken: _vm.apiToken, userId: _vm.userId }
+          })
+        ],
+        1
+      )
     ])
   ])
 }
@@ -45087,12 +45149,25 @@ var render = function() {
     "div",
     { attrs: { id: "posts" } },
     [
+      _c("div", { staticClass: "nav" }, [
+        _c(
+          "div",
+          { staticClass: "nav-item" },
+          [
+            _c("router-link", { attrs: { to: { name: "create" } } }, [
+              _vm._v("\n                Create\n            ")
+            ])
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
       _vm._l(_vm.posts, function(post) {
         return _c(
           "p",
           { staticClass: "border p-3" },
           [
-            _vm._v("\n        " + _vm._s(post.title) + "\n        "),
+            _vm._v("\n\n        " + _vm._s(post.title) + "\n        "),
             _c(
               "router-link",
               {
@@ -45249,6 +45324,22 @@ var render = function() {
             required: ""
           }
         })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "mb-3" }, [
+        _c("img", { ref: "imageView", attrs: { width: "100", alt: "image" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "custom-file mb-3" }, [
+        _c("input", {
+          ref: "image",
+          staticClass: "custom-file-input",
+          attrs: { type: "file", name: "image", id: "image", required: "" }
+        }),
+        _vm._v(" "),
+        _c("label", { staticClass: "custom-file-label" }, [
+          _vm._v("Choose file...")
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -60553,7 +60644,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     component: _components_Pages__WEBPACK_IMPORTED_MODULE_7__["default"],
     props: true
   }, {
-    path: '/admin/Read',
+    path: '/admin/read',
     name: 'read',
     component: _components_Read__WEBPACK_IMPORTED_MODULE_4__["default"],
     props: true
