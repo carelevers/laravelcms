@@ -34,4 +34,8 @@ class HomeController extends Controller
             return redirect('/admin/dashboard');
         }
     }
+    public function aboutMe(Request $request)
+    {
+
+    }
 }

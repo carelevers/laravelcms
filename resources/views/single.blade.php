@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 mx-auto">
+            <div class="col-lg-10 mx-auto mt-lg-5">
                 <br>
                 <h3 class="mt-4">
                     {{ $post->title }}

@@ -9,8 +9,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,39 +20,69 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area header-sticky">
     <div class="container">
-        <a class="navbar-brand" href="/">Graag Gegeven</a>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                @if (Route::has('login'))
-                    @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/home') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="#" class="logo">Graag Gegeven</a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+
+                    <ul class="nav pull-right ">
+                        @if (Route::has('login'))
+                            @auth
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/home') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                Log out
-                            </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
-                        </li>
-                    @endauth
-                @endif
-            </ul>
+                                        Log out
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @else
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                                </li>
+
+                            @endauth
+                        @endif
+                    </ul>
+                    <ul class="nav pull-left">
+                        <li class="scroll-to-section"> <a class="nav-link" href="{{ url('/home') }}">Home</a></li>
+                        <li class="scroll-to-section"> <a class="nav-link" href="{{ url('/aboutme') }}">Over mij</a></li>
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
         </div>
     </div>
-</nav>
+</header>
+<!-- ***** Header Area End ***** -->
+
 
 <div id="app">
     @yield('content')
@@ -61,8 +90,13 @@
 
 <footer class="py-5 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; LaravelCMS 2018</p>
+        <p class="m-0 text-center text-white">Copyright &copy; CarelEvers 2020</p>
     </div>
 </footer>
+<!-- Scripts -->
+
+<script src="{{ asset('js/app.js') }}" defer></script>
+
+
 </body>
 </html>

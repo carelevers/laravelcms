@@ -21,7 +21,7 @@ class PostController extends Controller
      */
     public function all()
     {
-        return view('landing', [
+        return view('blog', [
             'posts' => Post::latest()->paginate(5)
         ]);
     }

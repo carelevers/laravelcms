@@ -16,18 +16,20 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
-//posts
-Route::get('/posts/{post}', 'PostController@single');
-Route::get('/posts', 'PostController@all');
+Route::get('/aboutme', 'ContentController@index')->name('about-me');
 
 //comments
 Route::get('/{post}/comments', 'CommentController@index');
 Route::post('/{post}/comments', 'CommentController@store');
 
+//blog
+Route::get('/blog', 'PostController@all')->name('blog');
+Route::get('/blog/{post}', 'PostController@single');
+
 //content
-Route::get('/', 'ContentController@all');
+Route::get('/', 'ContentController@index');
 Route::get('/{content}', 'ContentController@single');
+
 
 //admin
 Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');

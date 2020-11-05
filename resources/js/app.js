@@ -1,7 +1,12 @@
 
 
-
 require('./bootstrap');
+require('./templateJS/waypoints.min.js');
+require('./templateJS/owl-carousel.js');
+require('./templateJS/jquery.counterup.min.js');
+require('./templateJS/imgfix.min.js');
+require('./templateJS/scrollreveal.min.js');
+require('./templateJS/custom.js');
 
 import Vue          from 'vue'
 import VueRouter    from 'vue-router'

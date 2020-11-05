@@ -76,7 +76,7 @@ export default {
             });
         },
         deletePost(id) {
-            axios.delete("/api/posts/" + id).then(response => this.getPosts())
+            axios.delete("/api/posts/" + id + "?api_token="+this.apiToken).then(response => this.getPosts())
         },
         navigate(address) {
             this.getPosts(address)

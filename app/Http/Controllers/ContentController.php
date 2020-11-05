@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 
 class ContentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Content $content)
     {
-        //
+        return view('landing', [
+            'content' => Content::where('id', "1")->first()
+        ]);
+
     }
 
     /**
