@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Content extends Model
 {
+
+    protected $fillable = ['user_id', 'title', 'body', 'image','template','friendlyurl','status'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

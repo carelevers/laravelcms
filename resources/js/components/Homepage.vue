@@ -106,6 +106,7 @@ article > header {
     height: 60px;
     border-bottom: 1px solid #2a3843;
 }
+
 </style>
 <script>
 export default {

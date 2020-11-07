@@ -15,17 +15,25 @@
             </div>
 
             <div class="form-group">
-                <input type="title" ref="title" class="form-control" id="title" placeholder="Enter title" required>
+                <input type="text" ref="title" class="form-control" id="title" placeholder="Enter title" required>
             </div>
-
             <div class="form-group">
-                <textarea class="form-control" ref="body" id="body" placeholder="Enter a body" rows="8" required></textarea>
+                <input type="text" class="form-control" ref="friendlyurl" id="friendlyurl" placeholder="Enter a friendlyurl" rows="8" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" ref="status" id="status" placeholder="Enter a status" rows="8" required>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control editor" ref="body" id="body" placeholder="Enter a body" rows="8" required></textarea>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" ref="template" id="template" placeholder="Enter a template" rows="8" required>
             </div>
             <div class="mb-3">
                 <img width="100" ref="imageView"  alt="image" />
             </div>
             <div class="custom-file mb-3">
-                <input type="file" ref="image" name="image" class="custom-file-input" id="image" required>
+                <input  type="file" ref="image" name="image" class="custom-file-input" id="image" required>
                 <label class="custom-file-label" >Choose file...</label>
             </div>
 
@@ -38,10 +46,10 @@
 <script>
 export default {
     mounted() {
-        this.getPost();
+        this.getContent();
     },
     props: {
-        postId: {
+        pageId: {
             type: Number,
             required: true
         },
@@ -62,10 +70,14 @@ export default {
             const formData = new FormData();
             formData.append("title", this.$refs.title.value);
             formData.append("body", this.$refs.body.value);
+            formData.append("friendlyurl", this.$refs.friendlyurl.value);
+            formData.append("status", this.$refs.status.value);
+            formData.append("template", this.$refs.template.value);
             formData.append("image", this.$refs.image.files[0]);
-            console.log(formData);
+
+
             axios
-                .post("/api/posts/" + this.postId + "?api_token="+this.apiToken+"&_method=PUT",  formData )
+                .post("/api/content/" + this.pageId + "?api_token="+this.apiToken+"&_method=PUT",  formData )
                 .then(response => {
                     this.successful = true;
                     this.error = false;
@@ -81,11 +93,14 @@ export default {
                     }
                 });
         },
-        getPost() {
-            axios.get("/api/posts/" + this.postId + "?api_token="+this.apiToken).then(response => {
+        getContent() {
+            axios.get("/api/content/" + this.pageId + "?api_token="+this.apiToken).then(response => {
                 this.$refs.title.value = response.data.data.title;
                 this.$refs.body.value = response.data.data.body;
-                this.$refs.imageView.src = "/uploads/posts/"+response.data.data.image;
+                this.$refs.friendlyurl.value = response.data.data.friendlyurl;
+                this.$refs.status.value = response.data.data.status;
+                this.$refs.template.value = response.data.data.template;
+                this.$refs.imageView.src = "/uploads/content/"+response.data.data.image;
             });
         }
     }

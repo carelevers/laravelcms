@@ -68,10 +68,6 @@
                             @endauth
                         @endif
                     </ul>
-                    <ul class="nav pull-left">
-                        <li class="scroll-to-section"> <a class="nav-link" href="{{ url('/home') }}">Home</a></li>
-                        <li class="scroll-to-section"> <a class="nav-link" href="{{ url('/aboutme') }}">Over mij</a></li>
-                    </ul>
                     <a class='menu-trigger'>
                         <span>Menu</span>
                     </a>

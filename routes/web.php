@@ -27,7 +27,7 @@ Route::get('/blog', 'PostController@all')->name('blog');
 Route::get('/blog/{post}', 'PostController@single');
 
 //content
-Route::get('/', 'ContentController@index');
+Route::get('/', 'ContentController@landing');
 Route::get('/{content}', 'ContentController@single');
 
 

@@ -1,6 +1,8 @@
 (function($) {
   "use strict";
 
+
+
   $(".owl-carousel").owlCarousel({
     loop: true,
     margin: 30,
@@ -41,7 +43,9 @@
 
   // Scroll animation init
   window.sr = new scrollReveal();
-    console.log(window.sr);
+
+
+
   // Menu Dropdown Toggle
   if ($(".menu-trigger").length) {
     $(".menu-trigger").on("click", function() {
@@ -77,7 +81,9 @@
   });
 
   $(document).ready(function() {
-    $(document).on("scroll", onScroll);
+
+
+      $(document).on("scroll", onScroll);
 
     //smoothscroll
     $('a[href^="#"]').on("click", function(e) {

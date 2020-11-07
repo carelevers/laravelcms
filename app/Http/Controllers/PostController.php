@@ -6,7 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Resources\PostResource;
 use Illuminate\Support\Str;
-use App\Helper\Helper;
+use App\Helpers\Helper;
 
 /**
  * Class PostController
@@ -97,17 +97,26 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
-        print_r($post);
+
         if ($request->hasFile('image')) {
-            $name = Helper::moveImage($request->file('image'));
-            $post->image = Str::slug($request->title).'.'.$name;
+            $image = $request->file('image');
+            $name = Str::slug($request->title).'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/uploads/posts');
+            $imagePath = $destinationPath . "/" . $name;
+            $image->move($destinationPath, $name);
+            $post->image = $name;
         }
-        $post->update($request->only(['title', 'body','image']));
+
+        $post->title = $request->title;
+        $post->body = $request->body;
+
+        $post->update(['image' => $post->image,"title"=>$post->title,"body"=>$post->body]);
 
         return new PostResource($post);
     }
