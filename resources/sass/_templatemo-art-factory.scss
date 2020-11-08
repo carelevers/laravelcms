@@ -351,7 +351,9 @@ header
     -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
 }
-
+.custom  .main-nav .logo {
+    color: #000 !important;
+}
 .header-area .main-nav .nav {
     margin-top: 27px;
     margin-left: 20px;
@@ -388,7 +390,9 @@ header
     border: transparent;
     letter-spacing: 1px;
 }
-
+.custom .main-nav .nav li a {
+    color:#000 !important;
+}
 .header-area .main-nav .nav li:hover a {
     color: #f55858;
 }
@@ -977,25 +981,22 @@ services
 
 .service-item .icon {
     text-align: center;
-    -webkit-transition: all 0.3s ease 0s;
-    -moz-transition: all 0.3s ease 0s;
-    -o-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     line-height: 100px;
     margin: auto;
+    margin-bottom: auto;
     position: relative;
     margin-bottom: 30px;
     background: #00b4c6;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
     border-radius: 50%;
     position: relative;
+    overflow: hidden;
 }
 
 .service-item .icon img {
-    max-width: 50px;
+    overflow: hidden;
     position: absolute;
     top: 50%;
     left: 50%;

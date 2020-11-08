@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.index')
 
 @section('content')
     <div class="container">
@@ -15,7 +15,7 @@
                 <img class="img-fluid rounded" src="{!! !empty($post->image) ? '/uploads/posts/' . $post->image : 'http://placehold.it/750x300' !!}" alt="">
                 <hr>
                 <div>
-                    <p>{{ $post->body }}</p>
+                    <p>{!!  $post->body !!}</p>
                     <hr>
                     <br>
                 </div>
